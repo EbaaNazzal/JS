@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>To-do List</title>
+    <link href="style.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript">
+        function addNewTask() {
+            // debugger;
+            let div = document.createElement('div');
+            div.setAttribute("class", "TasksBox")
+
+            let chk = document.createElement('input');
+            chk.setAttribute("type", "checkbox");
+            chk.setAttribute("onclick", "changeStatus(this)");
+            div.appendChild(chk);
+
+            let sp = document.createElement('span');
+            let taskText = document.getElementById("txtNewTask").value;
+            let taslValue = document.createTextNode(taskText);
+            sp.appendChild(taslValue);
+            div.appendChild(sp);
+
+            let tasks = document.getElementById('Tasks');
+            tasks.appendChild(div);
+
+            all_Tasks.push(chk);
+            console.log("all");
+            console.log(all_Tasks);
+        }
+
+        function changeStatus(x) {
+            // debugger; 
+            let div = x.parentNode;
+            let sp = div.getElementsByTagName("span");
+            if(sp[0].style.textDecoration == "none" || sp[0].style.textDecoration == "")
+               sp[0].style.textDecoration = "line-through";
+            else 
+               sp[0].style.textDecoration = "none";
+        }
+
+        function showActive() {
+            // debugger; 
+           var div = document.getElementById("Tasks");
+           var chk = div.getElementsByTagName('input');
+          showAll();
+
+           for(var i =0;i < chk.length; i++){
+               if(chk[i].checked == true)
+             chk[i].parentNode.style.display="none";
+           }
+        }
+
+        function showAll() {
+           var tasks = document.getElementsByClassName('TasksBox');
+           for(var i =0;i < tasks.length; i++){
+            tasks[i].style.display="block";
+            }
+
+        }
+
+      
+
+        function showCompleted() {
+            // debugger; 
+           
+            var div = document.getElementById("Tasks");
+           var chk = div.getElementsByTagName('input');
+           showAll();
+
+           for(var i =0;i < chk.length; i++){
+               if(chk[i].checked != true)
+               chk[i].parentNode.style.display="none";
+          
+           }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+
+        <div class="NewTaskBox">
+            <input type="text" id="txtNewTask" placeholder="New Task..." />
+        </div>
+        <div class="ActionBox">
+            <button id="txtNewTask" class="btn ButtonSubmit" onclick="addNewTask()">New Task</button>
+        </div>
+        <div class="TabBox">
+            <span class="tabItems" onclick="showAll()">
+                All
+            </span>
+            <span class="tabItems" onclick="showActive()">
+                Active
+            </span>
+            <span class="tabItems" onclick="showCompleted()">
+                Completed
+            </span>
+        </div>
+        <div id="Tasks">
+        </div>
+    </div>
+</body>
+</html>
